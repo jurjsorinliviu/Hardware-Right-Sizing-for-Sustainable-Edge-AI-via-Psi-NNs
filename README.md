@@ -70,22 +70,12 @@ Novel training approach using 50% duty cycle renewable energy:
 ├── experiments/                # Individual problem experiments
 │   ├── burgers_solar_experiment.py
 │   ├── duty_cycle_sweep.py
+│   ├── export_results.py
+│   ├── heat_wave_debug.py
 │   ├── kappa_sweep_experiment.py
 │   ├── realistic_solar_validation.py
 │   ├── statistical_validation.py
 │   ├── three_regime_advection_experiment.py
-│   └── results/                    # Experimental outputs
-│       ├── figure1_three_regime_timeline.png
-│       ├── figure4_realistic_solar_comparison.png
-│       ├── unified_results.csv
-│       ├── unified_comparison_table.tex
-│       ├── three_regime_burgers/
-│       ├── three_regime_laplace/
-│       ├── three_regime_memristor/
-│       ├── statistical_validation/
-│       ├── architecture_sensitivity/
-│       ├── long_term_convergence/
-│       └── realistic_solar_burgers/
 │
 ├── PSI-HDL-implementation/          # Base Ψ-HDL framework
 │   ├── Code/
@@ -100,10 +90,31 @@ Novel training approach using 50% duty cycle renewable energy:
 │       │   └── Training.py
 │       └── Config/                 # Experiment configurations
 │
-├── results/                         # Legacy demonstration results
-│   ├── burgers/
-│   ├── memristor/
-│   └── multi_model/
+├── results/                    # Experimental outputs
+│       ├── figure1_three_regime_timeline.png
+│       ├── figure4_realistic_solar_comparison.png
+│       ├── unified_results.csv
+│       ├── unified_comparison_table.tex
+│       ├── architecture_sensitivity/
+│       ├── burgers/
+│       ├── duty_cycle_sweep/
+│       ├── kappa_sweep_burgers/
+│       ├── long_term_convergence/
+│       ├── memristor/
+│       ├── multi_model/
+│       ├── realistic_solar_burgers/
+│       ├── statistical_validation/
+│       ├── three_regime_burgers/
+│       ├── three_regime_laplace/
+│       ├── three_regime_memristor/
+│       ├── three_regime_burgers/
+│       ├── three_regime_laplace/
+│       ├── three_regime_memristor/
+│       ├── statistical_validation/
+│       ├── architecture_sensitivity/
+│       ├── long_term_convergence/
+│       └── realistic_solar_burgers/
+│
 ```
 
 ## 🚀 Quick Start
