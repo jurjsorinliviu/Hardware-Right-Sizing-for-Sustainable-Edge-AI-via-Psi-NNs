@@ -5,6 +5,7 @@
 
 > **Author**: Sorin Liviu Jurj   
 > **Status**: Under Review
+<img width="1682" height="2967" alt="methodology_pipeline vertical" src="https://github.com/user-attachments/assets/093bc798-e887-41b8-97b6-b8cda8173080" />
 
 ## 📋 Overview
 
