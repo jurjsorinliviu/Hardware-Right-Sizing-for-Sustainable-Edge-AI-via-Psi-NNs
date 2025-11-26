@@ -1,0 +1,10 @@
+Experiment,Regime,Duty_Cycle,Active_Steps,Total_Steps,Final_Loss,Delta_vs_Baseline_Percent,Training_Time_Seconds,Operations_per_Inference,Memory_KB,Power_mW,Recommended_Platform,Platform_Cost_USD
+Burgers,Continuous,100.0,3000,3000,0.206201,0.0,68.22,2252,9.31,0.08,Jetson Orin Nano,219
+Burgers,Passive,50.0,1500,3000,0.211292,2.5,33.18,2252,9.31,0.08,Jetson Orin Nano,219
+Burgers,Active,50.0,1500,3000,0.219651,6.5,34.05,2252,9.31,0.08,Jetson Orin Nano,219
+Laplace,Continuous,100.0,3000,3000,0.013767,0.0,46.23,NA,NA,NA,Jetson Orin Nano,219
+Laplace,Passive,50.0,1500,3000,0.013654,-0.82,24.16,NA,NA,NA,Jetson Orin Nano,219
+Laplace,Active,50.0,1500,3000,0.018498,34.37,22.85,NA,NA,NA,Jetson Orin Nano,219
+Memristor,Continuous,100.0,3000,3000,0.001697,0.0,6.50,NA,NA,NA,STM32H7,8
+Memristor,Passive,50.0,1500,3000,0.001226,-27.77,3.30,NA,NA,NA,Nordic nRF52840,3.5
+Memristor,Active,50.0,1500,3000,0.004650,174.02,3.45,NA,NA,NA,STM32H7,8

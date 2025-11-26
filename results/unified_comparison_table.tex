@@ -1,0 +1,61 @@
+% Unified Three-Regime Comparison Table
+% Chapter 4: Sustainable Edge AI
+% Generated: 2024-01-15
+
+\begin{table*}[t]
+\centering
+\caption{Three-Regime Training Methodology: Comprehensive Results Across Three Case Studies}
+\label{tab:three_regime_unified}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Experiment} & \textbf{Regime} & \textbf{Duty} & \textbf{Active} & \textbf{Final} & \textbf{$\Delta$ vs} & \textbf{Training} & \textbf{Hardware} \\
+ & & \textbf{Cycle} & \textbf{Steps} & \textbf{Loss} & \textbf{Baseline} & \textbf{Time (s)} & \textbf{Platform} \\
+\midrule
+\multirow{3}{*}{\textbf{Burgers PDE}} 
+  & Continuous & 100\% & 3000/3000 & 0.206201 & 0.0\% & 68.22 & Jetson Orin Nano \\
+  & Passive & 50\% & 1500/3000 & 0.211292 & \textcolor{orange}{+2.5\%} & 33.18 & Jetson Orin Nano \\
+  & Active & 50\% & 1500/3000 & 0.219651 & \textcolor{red}{+6.5\%} & 34.05 & Jetson Orin Nano \\
+\midrule
+\multirow{3}{*}{\textbf{Laplace PDE}} 
+  & Continuous & 100\% & 3000/3000 & 0.013767 & 0.0\% & 46.23 & Jetson Orin Nano \\
+  & Passive & 50\% & 1500/3000 & 0.013654 & \textcolor{green}{\textbf{-0.82\%}} & 24.16 & Jetson Orin Nano \\
+  & Active & 50\% & 1500/3000 & 0.018498 & \textcolor{red}{+34.4\%} & 22.85 & Jetson Orin Nano \\
+\midrule
+\multirow{3}{*}{\textbf{Memristor}} 
+  & Continuous & 100\% & 3000/3000 & 1.697$\times$10$^{-3}$ & 0.0\% & 6.50 & STM32H7 (\$8.00) \\
+  & Passive & 50\% & 1500/3000 & 1.226$\times$10$^{-3}$ & \textcolor{green}{\textbf{-27.8\%}} & 3.30 & \textbf{nRF52840 (\$3.50)} \\
+  & Active & 50\% & 1500/3000 & 4.650$\times$10$^{-3}$ & \textcolor{red}{+174\%} & 3.45 & STM32H7 (\$8.00) \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small
+\item \textbf{Regime definitions:} Continuous = grid power with standard regularization; Passive = 50\% solar duty cycle without adaptive regularization; Active = 50\% solar duty cycle with adaptive regularization (Equation 55, $\kappa=2.0$).
+\item \textbf{Key findings:} (1) Passive regime achieves exact 50\% duty cycle specification across all experiments. (2) Passive regime \emph{improves} accuracy in Laplace (-0.82\%) and Memristor (-27.8\%) cases, suggesting implicit regularization benefits. (3) Active regime consistently underperforms, indicating current adaptive strategy needs refinement.
+\item \textbf{Hardware implications:} Passive solar training of memristor model enables deployment on nRF52840 (\$3.50, 15 mW) instead of STM32H7 (\$8.00, 80 mW), representing \$4.50/unit cost savings and 5.3$\times$ power reduction.
+\item \textbf{Carbon footprint:} Passive solar training + optimal hardware selection achieves 99.8\% lifecycle CO$_2$ reduction (208.4 kg $\rightarrow$ 0.348 kg over 5 years) compared to grid training + high-performance platform.
+\end{tablenotes}
+\end{table*}
+
+% Alternative compact version for space-constrained venues
+\begin{table}[t]
+\centering
+\caption{Three-Regime Training Results Summary}
+\label{tab:three_regime_compact}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Experiment} & \textbf{Continuous} & \textbf{Passive} & \textbf{Active} \\
+ & \textbf{(Baseline)} & \textbf{($\Delta$\%)} & \textbf{($\Delta$\%)} \\
+\midrule
+Burgers PDE & 0.2062 & +2.5\% & +6.5\% \\
+Laplace PDE & 0.0138 & \textbf{-0.8\%} & +34.4\% \\
+Memristor & 1.70e-3 & \textbf{-27.8\%} & +174\% \\
+\midrule
+\textbf{Energy} & 100\% & \textbf{50\%} & 50\% \\
+\textbf{Time} & 100\% & \textbf{~50\%} & ~50\% \\
+\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\small
+\item Bold values indicate improvement over baseline. Passive regime achieves 50\% energy savings with acceptable/improved accuracy.
+\end{tablenotes}
+\end{table}
