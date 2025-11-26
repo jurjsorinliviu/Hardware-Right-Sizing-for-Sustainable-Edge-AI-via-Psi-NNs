@@ -1,0 +1,64 @@
+{
+  "continuous": {
+    "final_loss": 0.0893816351890564,
+    "train_time": 42.9423987865448,
+    "accuracy": {
+      "mse": 0.1036844477057457,
+      "mae": 0.26726990938186646,
+      "rel_error": 1.292232871055603
+    },
+    "duty_cycle": 1.0,
+    "config": {
+      "epochs": 5000,
+      "lr": 0.001,
+      "regularization": 0.0001,
+      "hidden_sizes": [
+        40,
+        40,
+        40
+      ]
+    }
+  },
+  "passive_realistic": {
+    "final_loss": 0.20659063756465912,
+    "train_time": 20.782376766204834,
+    "accuracy": {
+      "mse": 0.08647522330284119,
+      "mae": 0.23801922798156738,
+      "rel_error": 0.5878134369850159
+    },
+    "duty_cycle": 0.5,
+    "config": {
+      "epochs": 5000,
+      "lr": 0.001,
+      "regularization": 0.0001,
+      "hidden_sizes": [
+        40,
+        40,
+        40
+      ]
+    },
+    "interruptions": 5000
+  },
+  "active_realistic": {
+    "final_loss": 0.23250818252563477,
+    "train_time": 20.63430690765381,
+    "accuracy": {
+      "mse": 0.08537392318248749,
+      "mae": 0.23229321837425232,
+      "rel_error": 0.5670072436332703
+    },
+    "duty_cycle": 0.5,
+    "config": {
+      "epochs": 5000,
+      "lr": 0.001,
+      "regularization": 0.0001,
+      "hidden_sizes": [
+        40,
+        40,
+        40
+      ]
+    },
+    "interruptions": 5000
+  }
+}

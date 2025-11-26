@@ -1,0 +1,84 @@
+{
+  "continuous": {
+    "final_loss": 0.1662137508392334,
+    "train_time": 33.17759609222412,
+    "accuracy": {
+      "mse": 0.08655647933483124,
+      "mae": 0.2371833771467209,
+      "rel_error": 0.5494171380996704
+    },
+    "duty_cycle": 1.0
+  },
+  "duty_cycle_30": {
+    "passive": {
+      "final_loss": 0.22004853188991547,
+      "train_time": 17.118417263031006,
+      "accuracy": {
+        "mse": 0.0862283855676651,
+        "mae": 0.23710346221923828,
+        "rel_error": 0.4450298547744751
+      },
+      "duty_cycle": 0.5,
+      "interruptions": 5000
+    },
+    "active": {
+      "final_loss": 0.2487829327583313,
+      "train_time": 16.28698468208313,
+      "accuracy": {
+        "mse": 0.08573009073734283,
+        "mae": 0.2316538244485855,
+        "rel_error": 0.5249155759811401
+      },
+      "duty_cycle": 0.5,
+      "interruptions": 5000
+    }
+  },
+  "duty_cycle_50": {
+    "passive": {
+      "final_loss": 0.2284705936908722,
+      "train_time": 16.169525623321533,
+      "accuracy": {
+        "mse": 0.09364540874958038,
+        "mae": 0.2413247525691986,
+        "rel_error": 0.45278438925743103
+      },
+      "duty_cycle": 0.5,
+      "interruptions": 5000
+    },
+    "active": {
+      "final_loss": 0.27626124024391174,
+      "train_time": 15.9627206325531,
+      "accuracy": {
+        "mse": 0.08222954720258713,
+        "mae": 0.22453561425209045,
+        "rel_error": 0.4042731523513794
+      },
+      "duty_cycle": 0.5,
+      "interruptions": 5000
+    }
+  },
+  "duty_cycle_70": {
+    "passive": {
+      "final_loss": 0.2215229719877243,
+      "train_time": 16.322093725204468,
+      "accuracy": {
+        "mse": 0.08777105063199997,
+        "mae": 0.23744744062423706,
+        "rel_error": 0.39261212944984436
+      },
+      "duty_cycle": 0.5,
+      "interruptions": 5000
+    },
+    "active": {
+      "final_loss": 0.25149276852607727,
+      "train_time": 15.880966901779175,
+      "accuracy": {
+        "mse": 0.08996959030628204,
+        "mae": 0.23827122151851654,
+        "rel_error": 0.45711037516593933
+      },
+      "duty_cycle": 0.5,
+      "interruptions": 5000
+    }
+  }
+}
