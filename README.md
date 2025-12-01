@@ -2,6 +2,7 @@
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jurjsorinliviu/Sustainable-Edge-AI)
 
 > **Author**: Sorin Liviu Jurj   
 > **Status**: Under Review
@@ -145,7 +146,33 @@ python experiments/pvgis_solar_validation.py --epochs 3000 --seeds 3 --panel-are
 
 ## 🚀 Quick Start
 
-### Prerequisites
+### Option 1: GitHub Codespaces (Recommended - Zero Setup)
+
+The fastest way to get started is using GitHub Codespaces. Click the button below to launch a fully configured development environment in your browser:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/jurjsorinliviu/Sustainable-Edge-AI)
+
+**What's included:**
+- Python 3.11 with all dependencies pre-installed
+- Jupyter Notebook support
+- VS Code extensions for Python development
+- Ready-to-run experiments
+
+After the Codespace launches (typically 2-3 minutes), you can immediately run:
+
+```bash
+# Verify setup
+python -c "import torch; print(f'PyTorch: {torch.__version__}')"
+
+# Run your first experiment
+python experiments/burgers_solar_experiment.py
+```
+
+> **Note**: GPU acceleration is available in Codespaces with the appropriate machine type. For compute-intensive experiments, consider using a 4-core or 8-core machine.
+
+### Option 2: Local Installation
+
+#### Prerequisites
 
 ```bash
 # Python 3.8 or higher
@@ -155,7 +182,7 @@ python --version
 nvidia-smi
 ```
 
-### Installation
+#### Installation
 
 ```bash
 # Clone repository
