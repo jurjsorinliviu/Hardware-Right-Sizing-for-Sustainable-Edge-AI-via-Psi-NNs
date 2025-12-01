@@ -537,6 +537,6 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ---
 
-**Last Updated**: November 2025  
+**Last Updated**: December 2025  
 **Paper Status**: Under Review  
 **Code Version**: v1.0.0
