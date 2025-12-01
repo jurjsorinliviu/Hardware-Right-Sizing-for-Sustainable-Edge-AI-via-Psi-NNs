@@ -49,7 +49,7 @@ Novel training approach using 50% duty cycle renewable energy:
 The Markov solar model (Equations 50-51 in the paper) has been validated against location-calibrated synthetic solar data for Chemnitz, Germany (50.8°N latitude):
 
 | Solar Panel Area (m²) | Real Duty Cycle | Markov Duty Cycle | Real Degradation | Markov Degradation | Model Agreement |
-|-----------------------|-----------------|-------------------|------------------|--------------------|-----------------|
+| --------------------- | --------------- | ----------------- | ---------------- | ------------------ | --------------- |
 | 2 (undersized)        | 0.3%            | 12.9%             | +2035%           | +109%              | Failed          |
 | 10                    | 21.7%           | 36.3%             | +89%             | +60%               | Δ=29%           |
 | 15 (target)           | 27.4%           | 39.5%             | +68%             | +56%               | **Δ=11% ✓**     |
@@ -63,6 +63,27 @@ python experiments/pvgis_solar_validation.py --epochs 3000 --seeds 3
 
 # Properly sized for Northern Europe (15m² panel)
 python experiments/pvgis_solar_validation.py --epochs 3000 --seeds 3 --panel-area 15.0 --peak-power 1500.0 --output results/pvgis_validation_15m2
+```
+
+### 2.2 GPU Power Validation
+
+The manuscript uses 250W as a conservative estimate for RTX 4090 power consumption during training. Empirical measurement shows actual consumption is significantly lower:
+
+| Configuration | Mean Power | Max Power | Min Power | Manuscript Claim | Discrepancy |
+|---------------|------------|-----------|-----------|------------------|-------------|
+| 4×50 neurons, 1000 collocation points, 6000 epochs | **57W** | 92W | 50W | 250W | **77% lower** |
+
+**Key Finding**: PINN training is a lightweight workload compared to gaming (200-420W) or stress tests (450-550W). The 250W assumption is conservative, meaning solar feasibility is more readily achievable than presented.
+
+To run the GPU power measurement:
+```bash
+# Quick test (500 epochs)
+python experiments/measure_gpu_power.py
+
+# Full manuscript configuration (6000 epochs)
+python experiments/measure_gpu_power.py --manuscript
+
+# Results saved to results/gpu_power_measurement/
 ```
 
 ### 3. Three-Class Problem Taxonomy
@@ -96,7 +117,8 @@ python experiments/pvgis_solar_validation.py --epochs 3000 --seeds 3 --panel-are
 │   ├── export_results.py
 │   ├── heat_wave_debug.py
 │   ├── kappa_sweep_experiment.py
-│   ├── pvgis_solar_validation.py  # NEW: Markov model validation
+│   ├── pvgis_solar_validation.py  # Markov model validation
+│   ├── measure_gpu_power.py       # GPU power measurement
 │   ├── realistic_solar_validation.py
 │   ├── statistical_validation.py
 │   ├── three_regime_advection_experiment.py
@@ -138,9 +160,10 @@ python experiments/pvgis_solar_validation.py --epochs 3000 --seeds 3 --panel-are
 │       ├── architecture_sensitivity/
 │       ├── long_term_convergence/
 │       ├── realistic_solar_burgers/
-│       ├── pvgis_validation/          # NEW: Markov model validation results
+│       ├── pvgis_validation/          # Markov model validation results
 │       ├── pvgis_validation_10m2_panel/
-│       └── pvgis_validation_50pct_duty/
+│       ├── pvgis_validation_50pct_duty/
+│       └── gpu_power_measurement/     # GPU power measurements
 │
 ```
 
