@@ -1,4 +1,4 @@
-# Sustainable Edge AI: Discovering Minimal Hardware Requirements Through Physics Structure-Informed Learning Under Renewable Energy Constraints
+# Hardware Right-Sizing for Sustainable Edge AI via Physics Structure-Informed Neural Networks Under Renewable Intermittency
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
@@ -429,11 +429,9 @@ If you use this framework in your research, please cite:
 ```bibtex
 @article{jurj2025sustainable,
   author = {Sorin Liviu Jurj},
-  title = {Sustainable Edge AI: Discovering Minimal Hardware Requirements
-           Through Physics Structure-Informed Learning Under Renewable
-           Energy Constraints},
+  title = {Hardware Right-Sizing for Sustainable Edge AI via Physics Structure-Informed Neural Networks Under Renewable Intermittency},
   journal = {Under Review},
-  year = {2025},
+  year = {2026},
   url = {https://github.com/jurjsorinliviu/Sustainable-Edge-AI}
 }
 ```
