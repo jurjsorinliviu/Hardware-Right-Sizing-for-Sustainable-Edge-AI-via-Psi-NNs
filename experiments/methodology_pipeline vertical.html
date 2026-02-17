@@ -1,349 +1,388 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sustainable Edge AI Methodology Pipeline</title>
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- React and ReactDOM -->
-    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    
-    <!-- Babel for JSX -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    
-    <!-- MathJax for LaTeX rendering -->
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
-                displayMath: [['$$', '$$'], ['\\[', '\\]']]
-            }
-        };
-    </script>
-    
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background: linear-gradient(to bottom right, #f9fafb, #eff6ff);
-            min-height: 100vh;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sustainable Edge AI Methodology Pipeline</title>
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- React 18 UMD -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+
+  <!-- Babel for JSX (demo/dev only) -->
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- MathJax config MUST come before loading MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      }
+    };
+  </script>
+  <script id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(to bottom right, #f9fafb, #eff6ff);
+      min-height: 100vh;
+    }
+  </style>
 </head>
+
 <body>
-    <div id="root"></div>
+  <div id="root"></div>
 
-    <script type="text/babel">
-        const { useState } = React;
-        
-        // Lucide React icon components (simplified SVG versions)
-        const ArrowDown = ({ className, size = 24 }) => (
-            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <polyline points="19 12 12 19 5 12"></polyline>
-            </svg>
-        );
+  <script type="text/babel">
+    const { useEffect, useState } = React;
 
-        const Code = ({ size = 24 }) => (
-            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="16 18 22 12 16 6"></polyline>
-                <polyline points="8 6 2 12 8 18"></polyline>
-            </svg>
-        );
+    // -----------------------
+    // Minimal icon set (SVG)
+    // -----------------------
+    const ArrowDown = ({ className = "", size = 24 }) => (
+      <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <polyline points="19 12 12 19 5 12"></polyline>
+      </svg>
+    );
 
-        const Database = ({ size = 24 }) => (
-            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-            </svg>
-        );
+    const Code = ({ size = 24 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="16 18 22 12 16 6"></polyline>
+        <polyline points="8 6 2 12 8 18"></polyline>
+      </svg>
+    );
 
-        const Sun = ({ size = 24 }) => (
-            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="5"></circle>
-                <line x1="12" y1="1" x2="12" y2="3"></line>
-                <line x1="12" y1="21" x2="12" y2="23"></line>
-                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                <line x1="1" y1="12" x2="3" y2="12"></line>
-                <line x1="21" y1="12" x2="23" y2="12"></line>
-                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-            </svg>
-        );
+    const Database = ({ size = 24 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+      </svg>
+    );
 
-        const CheckCircle = ({ className, size = 24 }) => (
-            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-                <polyline points="22 4 12 14.01 9 11.01"></polyline>
-            </svg>
-        );
+    const Sun = ({ size = 24 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+    );
 
-        const Activity = ({ className, size = 24 }) => (
-            <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
-            </svg>
-        );
+    const CheckCircle = ({ className = "", size = 24 }) => (
+      <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+      </svg>
+    );
 
-        const Box = ({ size = 18 }) => (
-            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
-                <line x1="12" y1="22.08" x2="12" y2="12"></line>
-            </svg>
-        );
+    const Activity = ({ className = "", size = 24 }) => (
+      <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+      </svg>
+    );
 
-        const Cpu = ({ size = 18 }) => (
-            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
-                <rect x="9" y="9" width="6" height="6"></rect>
-                <line x1="9" y1="1" x2="9" y2="4"></line>
-                <line x1="15" y1="1" x2="15" y2="4"></line>
-                <line x1="9" y1="20" x2="9" y2="23"></line>
-                <line x1="15" y1="20" x2="15" y2="23"></line>
-                <line x1="20" y1="9" x2="23" y2="9"></line>
-                <line x1="20" y1="14" x2="23" y2="14"></line>
-                <line x1="1" y1="9" x2="4" y2="9"></line>
-                <line x1="1" y1="14" x2="4" y2="14"></line>
-            </svg>
-        );
+    const Box = ({ size = 18 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+        <line x1="12" y1="22.08" x2="12" y2="12"></line>
+      </svg>
+    );
 
-        const Zap = ({ size = 18 }) => (
-            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-            </svg>
-        );
+    const Cpu = ({ size = 18 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+        <rect x="9" y="9" width="6" height="6"></rect>
+        <line x1="9" y1="1" x2="9" y2="4"></line>
+        <line x1="15" y1="1" x2="15" y2="4"></line>
+        <line x1="9" y1="20" x2="9" y2="23"></line>
+        <line x1="15" y1="20" x2="15" y2="23"></line>
+        <line x1="20" y1="9" x2="23" y2="9"></line>
+        <line x1="20" y1="14" x2="23" y2="14"></line>
+        <line x1="1" y1="9" x2="4" y2="9"></line>
+        <line x1="1" y1="14" x2="4" y2="14"></line>
+      </svg>
+    );
 
-        const TrendingDown = ({ size = 18 }) => (
-            <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
-                <polyline points="17 18 23 18 23 12"></polyline>
-            </svg>
-        );
+    const Zap = ({ size = 18 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+      </svg>
+    );
 
-        const MethodologyPipeline = () => {
-            const Separator = ({ color = "gray-400" }) => (
-                <ArrowDown className={`mx-auto text-${color} my-3`} size={32} />
-            );
+    const TrendingDown = ({ size = 18 }) => (
+      <svg width={size} height={size} viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+        <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+        <polyline points="17 18 23 18 23 12"></polyline>
+      </svg>
+    );
 
-            return (
-                <div className="w-full max-w-6xl mx-auto p-6 bg-gradient-to-br from-gray-50 to-blue-50 font-sans">
-                    {/* Title */}
-                    <div className="text-center mb-8">
-                        <h1 className="text-3xl font-extrabold text-gray-800 mb-2">
-                            Sustainable Edge AI Methodology Pipeline
-                        </h1>
-                        <p className="text-gray-600">Physics Structure-Informed Learning under Renewable Energy Constraints</p>
-                    </div>
+    function OutputCard({ icon, title, value }) {
+      return (
+        <div className="bg-white bg-opacity-20 p-3 rounded-lg flex items-center space-x-2">
+          <div className="flex-shrink-0 text-white">{icon}</div>
+          <div>
+            <div className="font-semibold mb-0 leading-tight">{title}</div>
+            <div className="text-xs opacity-90">{value}</div>
+          </div>
+        </div>
+      );
+    }
 
-                    {/* INPUT */}
-                    <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg shadow-xl">
-                        <div className="text-center">
-                            <div className="text-xl font-bold mb-1">INPUT: Physical System</div>
-                            <div className="text-md opacity-90">PDEs, ODEs, Device Physics Equations</div>
-                        </div>
-                    </div>
+    const Separator = ({ className = "text-gray-400" }) => (
+      <ArrowDown className={`mx-auto my-3 ${className}`} size={32} />
+    );
 
-                    <Separator color="purple-500" />
+    // Force MathJax typesetting after the component mounts
+    function useMathJaxTypeset(dep) {
+      useEffect(() => {
+        const rootEl = document.getElementById("root");
+        const mj = window.MathJax;
 
-                    {/* STAGE 1: Ψ-HDL Pipeline */}
-                    <div className="bg-white rounded-lg shadow-2xl p-6 border-4 border-blue-400/50">
-                        <div className="bg-blue-600 text-white px-4 py-2 rounded-t-lg -mx-6 -mt-6 mb-4 flex items-center justify-between">
-                            <span className="font-extrabold text-lg">STAGE 1: Ψ-HDL Pipeline (Section III.A)</span>
-                            <Code size={24} />
-                        </div>
+        if (!mj || !mj.typesetPromise) return;
 
-                        <div className="grid grid-cols-5 items-center gap-2">
-                            {/* 1A: Teacher Network */}
-                            <div className="col-span-2 bg-gradient-to-br from-blue-100 to-blue-200 p-4 rounded-xl border border-blue-300">
-                                <div className="font-bold text-blue-800 mb-2 text-center">1. Teacher Network Training (Eq. 10)</div>
-                                <div className="text-xs text-gray-700 space-y-1">
-                                    <div>• Minimizes Physics Residuals</div>
-                                    <div>• Maximizes Data Fidelity</div>
-                                    <div>• Multi-objective Loss Function</div>
-                                </div>
-                            </div>
-
-                            {/* Arrow */}
-                            <div className="flex items-center justify-center">
-                                <ArrowDown className="text-blue-500 rotate-[-90deg]" size={40} />
-                            </div>
-
-                            {/* 1B: Student Network & Extraction */}
-                            <div className="col-span-2 bg-gradient-to-br from-green-100 to-green-200 p-4 rounded-xl border border-green-300">
-                                <div className="font-bold text-green-800 mb-2 text-center">2. Student Distillation & Clustering (Eq. 14)</div>
-                                <div className="text-xs text-gray-700 space-y-1">
-                                    <div>• Knowledge Distillation from Teacher</div>
-                                    <div>• L2 Regularization for Compression</div>
-                                    <div>• Hierarchical Agglomerative Clustering (HAC)</div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <Separator color="blue-400" />
-
-                        {/* Structure Output */}
-                        <div className="bg-yellow-100 p-4 rounded-lg border border-yellow-300 text-center">
-                            <div className="font-bold text-yellow-800 mb-2">OUTPUT 1: Cluster Centers (μ<sub>k</sub><sup>ℓ</sup>) & Relation Matrices (R<sup>ℓ</sup>)</div>
-                            <span className="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-bold">
-                                Achieves up to 99.6% Parameter Compression
-                            </span>
-                        </div>
-                    </div>
-
-                    <Separator color="gray-400" />
-
-                    {/* STAGE 2: Hardware Specification Extraction */}
-                    <div className="bg-white rounded-lg shadow-2xl p-6 border-4 border-green-400/50">
-                        <div className="bg-green-600 text-white px-4 py-2 rounded-t-lg -mx-6 -mt-6 mb-4 flex items-center justify-between">
-                            <span className="font-extrabold text-lg">STAGE 2: Hardware Specification Extraction (Section III.B)</span>
-                            <Database size={24} />
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-4 mb-4">
-                            {/* 2A: Operations */}
-                            <div className="bg-cyan-100 p-4 rounded-xl text-center border border-cyan-300">
-                                <div className="font-bold text-cyan-800 mb-2">Computational Complexity</div>
-                                <div className="text-base font-mono text-cyan-900 font-bold">TOPS<sub>safe</sub> via throughput analysis</div>
-                                <div className="text-xs text-gray-600 mt-2">Required Throughput</div>
-                            </div>
-                            {/* 2B: Memory */}
-                            <div className="bg-purple-100 p-4 rounded-xl text-center border border-purple-300">
-                                <div className="font-bold text-purple-800 mb-2">Memory Estimation</div>
-                                <div className="text-base font-mono text-purple-900 font-bold">M<sub>total</sub> = Weights + Acts + State</div>
-                                <div className="text-xs text-gray-600 mt-2">Weights + Activations + State</div>
-                            </div>
-                            {/* 2C: Power */}
-                            <div className="bg-orange-100 p-4 rounded-xl text-center border border-orange-300">
-                                <div className="font-bold text-orange-800 mb-2">Power Consumption</div>
-                                <div className="text-base font-mono text-orange-900 font-bold">P<sub>avg</sub> = Dynamic + Static</div>
-                                <div className="text-xs text-gray-600 mt-2">Dynamic + Static Leakage</div>
-                            </div>
-                        </div>
-
-                        <Separator color="green-500" />
-
-                        {/* Platform Recommendation */}
-                        <div className="bg-gradient-to-r from-green-200 to-green-300 p-4 rounded-xl border border-green-400">
-                            <div className="font-bold text-green-900 text-center mb-3 text-lg">Platform Recommendation Algorithm</div>
-                            <div className="grid grid-cols-3 gap-3 text-sm">
-                                <div className="bg-white p-2 rounded-lg text-center shadow">
-                                    <div className="font-semibold text-green-700">TinyML (&lt;0.1 TOPS)</div>
-                                    <div className="text-xs text-gray-600">STM32H7, Nordic nRF52840</div>
-                                </div>
-                                <div className="bg-white p-2 rounded-lg text-center shadow">
-                                    <div className="font-semibold text-blue-700">Mid-Range (1-10 TOPS)</div>
-                                    <div className="text-xs text-gray-600">TI AM62A, TI TDA4VM</div>
-                                </div>
-                                <div className="bg-white p-2 rounded-lg text-center shadow">
-                                    <div className="font-semibold text-red-700">High-Performance (&gt;20 TOPS)</div>
-                                    <div className="text-xs text-gray-600">Jetson Orin Nano, Hailo-8</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <Separator color="gray-400" />
-
-                    {/* STAGE 3: Solar-Constrained Training */}
-                    <div className="bg-white rounded-lg shadow-2xl p-6 border-4 border-yellow-400/50">
-                        <div className="bg-yellow-600 text-white px-4 py-2 rounded-t-lg -mx-6 -mt-6 mb-4 flex items-center justify-between">
-                            <span className="font-extrabold text-lg">STAGE 3: Solar-Constrained Training & Validation (Section III.C)</span>
-                            <Sun size={24} />
-                        </div>
-
-                        {/* Solar Model */}
-                        <div className="bg-gradient-to-r from-yellow-100 to-orange-100 p-4 rounded-xl mb-4 border border-yellow-300">
-                            <div className="font-semibold text-center text-gray-800 mb-2">Solar Power Availability Model</div>
-                            <div className="text-center text-sm font-mono bg-white p-2 rounded font-bold">
-                                P<sub>solar</sub>(t) = P<sub>max</sub> · max(0, sin(π(t-6)/12)) · W(t)
-                            </div>
-                            <div className="text-center text-xs text-gray-600 mt-2">GPU Power 250 W • Target d<sub>cycle</sub> ≈ 50%</div>
-                        </div>
-
-                        <div className="grid grid-cols-3 gap-4">
-                            {/* Regime 1: Continuous */}
-                            <div className="bg-gray-100 p-4 rounded-xl border-2 border-gray-400">
-                                <div className="font-bold text-gray-800 text-center mb-2">Regime 1: Continuous (Grid)</div>
-                                <div className="text-sm text-gray-700 space-y-1">
-                                    <div>• Baseline Reference</div>
-                                    <div>• Standard ω</div>
-                                </div>
-                            </div>
-
-                            {/* Regime 2: Passive (Recommended) */}
-                            <div className="bg-green-100 p-4 rounded-xl border-2 border-green-500">
-                                <div className="font-bold text-green-800 text-center mb-2">Regime 2: Passive ($\kappa = 0$)</div>
-                                <div className="text-sm text-gray-700 space-y-1">
-                                    <div>• Checkpoint Only (Adam State)</div>
-                                    <div>• <strong>Universally Outperforms Active</strong></div>
-                                </div>
-                            </div>
-
-                            {/* Regime 3: Active (Failed) */}
-                            <div className="bg-red-100 p-4 rounded-xl border-2 border-red-500">
-                                <div className="font-bold text-red-800 text-center mb-2">Regime 3: Active ($\kappa {'>'} 0$)</div>
-                                <div className="text-sm text-gray-700 space-y-1">
-                                    <div>• Adaptive Regularization Amplification</div>
-                                    <div>• <strong>Empirically Discarded</strong></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <Separator color="yellow-500" />
-
-                        {/* Validation/Classification */}
-                        <div className="bg-blue-100 p-4 rounded-xl border border-blue-300">
-                            <div className="font-bold text-blue-800 text-center mb-2 flex items-center justify-center">
-                                <Activity className="inline mr-2" size={20} />
-                                Problem Classification & Statistical Validation
-                            </div>
-                            <div className="text-sm text-gray-700 text-center space-x-4">
-                                <span className="font-bold text-green-700">Class A (Suitable):</span> Elliptic/Parabolic PDEs (e.g., Burgers, Laplace)
-                                <span className="font-bold text-red-700">Class B (Unsuitable):</span> Hyperbolic Transport, Memristors
-                            </div>
-                        </div>
-
-                    <Separator color="gray-400" />
-
-                    {/* FINAL OUTPUT */}
-                    <div className="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-xl shadow-xl border-4 border-green-700/50">
-                        <div className="text-center mb-4">
-                            <CheckCircle className="inline mr-3" size={32} />
-                            <span className="text-2xl font-extrabold">OUTPUT: Sustainable Deployment Strategy</span>
-                        </div>
-                        <div className="grid grid-cols-3 gap-4 text-sm">
-                            <OutputCard icon={<Box size={18} />} title="Compressed Model" value="Physics-Consistent, Cluster-Based" />
-                            <OutputCard icon={<Cpu size={18} />} title="Optimal Hardware" value="Right-Sized Platform Selection" />
-                            <OutputCard icon={<Code size={18} />} title="Verilog-A HDL" value="Circuit-Ready Compact Model" />
-                            <OutputCard icon={<TrendingDown size={18} />} title="96.8% Cost Savings" value="$8 MCU vs. $249 GPU" />
-                            <OutputCard icon={<Zap size={18} />} title="14× Carbon Reduction" value="Training + 5-Year Deployment" />
-                            <OutputCard icon={<Activity size={18} />} title="<6% Accuracy Loss" value="For Suitable Applications (Class A)" />
-                        </div>
-                    </div>
-                    </div>
-                </div>
-            );
+        const run = () => {
+          if (mj.typesetClear) mj.typesetClear([rootEl]);
+          return mj.typesetPromise([rootEl]);
         };
 
-        const OutputCard = ({ icon, title, value }) => (
-            <div className="bg-white bg-opacity-20 p-3 rounded-lg flex items-center space-x-2">
-                <div className="flex-shrink-0 text-white">{icon}</div>
-                <div>
-                    <div className="font-semibold mb-0 leading-tight">{title}</div>
-                    <div className="text-xs opacity-90">{value}</div>
-                </div>
-            </div>
-        );
+        // MathJax v3 exposes startup.promise when ready
+        if (mj.startup && mj.startup.promise) {
+          mj.startup.promise.then(run).catch(() => {});
+        } else {
+          // Small delay to ensure React commit finished
+          setTimeout(() => { run().catch(() => {}); }, 0);
+        }
+      }, [dep]);
+    }
 
-        ReactDOM.render(<MethodologyPipeline />, document.getElementById('root'));
-    </script>
+    const MethodologyPipeline = () => {
+      // Optional fallback if MathJax is blocked
+      const [mathMode] = useState(() => Boolean(window.MathJax));
+      useMathJaxTypeset(mathMode);
+
+      // Use ONE contiguous string for inline TeX
+      const kappaEq0 = "$\\kappa = 0$";
+      const kappaGt0 = "$\\kappa > 0$";
+
+      return (
+        <div className="w-full max-w-6xl mx-auto p-6 bg-gradient-to-br from-gray-50 to-blue-50 font-sans">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl font-extrabold text-gray-800 mb-2">
+              Sustainable Edge AI Methodology Pipeline
+            </h1>
+            <p className="text-gray-600">
+              Physics Structure-Informed Learning under Renewable Energy Constraints
+            </p>
+          </div>
+
+          <div className="bg-gradient-to-r from-purple-600 to-purple-700 text-white p-4 rounded-lg shadow-xl">
+            <div className="text-center">
+              <div className="text-xl font-bold mb-1">INPUT: Physical System</div>
+              <div className="text-md opacity-90">PDEs, ODEs, Device Physics Equations</div>
+            </div>
+          </div>
+
+          <Separator className="text-purple-500" />
+
+          <div className="bg-white rounded-lg shadow-2xl p-6 border-4 border-blue-400/50">
+            <div className="bg-blue-600 text-white px-4 py-2 rounded-t-lg -mx-6 -mt-6 mb-4 flex items-center justify-between">
+              <span className="font-extrabold text-lg">STAGE 1: Ψ-HDL Pipeline (Section III.A)</span>
+              <Code size={24} />
+            </div>
+
+            <div className="grid grid-cols-5 items-center gap-2">
+              <div className="col-span-2 bg-gradient-to-br from-blue-100 to-blue-200 p-4 rounded-xl border border-blue-300">
+                <div className="font-bold text-blue-800 mb-2 text-center">1. Teacher Network Training (Eq. 10)</div>
+                <div className="text-xs text-gray-700 space-y-1">
+                  <div>• Minimizes physics residuals</div>
+                  <div>• Maximizes data fidelity</div>
+                  <div>• Multi-objective loss function</div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-center">
+                <ArrowDown className="text-blue-500 rotate-[-90deg]" size={40} />
+              </div>
+
+              <div className="col-span-2 bg-gradient-to-br from-green-100 to-green-200 p-4 rounded-xl border border-green-300">
+                <div className="font-bold text-green-800 mb-2 text-center">2. Student Distillation &amp; Clustering (Eq. 14)</div>
+                <div className="text-xs text-gray-700 space-y-1">
+                  <div>• Knowledge distillation from teacher</div>
+                  <div>• Hardware complexity penalty for compression</div>
+                  <div>• Hierarchical agglomerative clustering (HAC)</div>
+                </div>
+              </div>
+            </div>
+
+            <Separator className="text-blue-400" />
+
+            <div className="bg-yellow-100 p-4 rounded-lg border border-yellow-300 text-center">
+              <div className="font-bold text-yellow-800 mb-2">
+                OUTPUT 1: Cluster Centers (μ<sub>k</sub><sup>ℓ</sup>) &amp; Relation Matrices (R<sup>ℓ</sup>)
+              </div>
+              <span className="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                Achieves up to ~99.6% Parameter Compression (best case)
+              </span>
+            </div>
+          </div>
+
+          <Separator className="text-gray-400" />
+
+          <div className="bg-white rounded-lg shadow-2xl p-6 border-4 border-green-400/50">
+            <div className="bg-green-600 text-white px-4 py-2 rounded-t-lg -mx-6 -mt-6 mb-4 flex items-center justify-between">
+              <span className="font-extrabold text-lg">STAGE 2: Hardware Specification Extraction (Section III.B)</span>
+              <Database size={24} />
+            </div>
+
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              <div className="bg-cyan-100 p-4 rounded-xl text-center border border-cyan-300">
+                <div className="font-bold text-cyan-800 mb-2">Computational Complexity</div>
+                <div className="text-base font-mono text-cyan-900 font-bold">TOPS<sub>required</sub> via throughput analysis</div>
+                <div className="text-xs text-gray-600 mt-2">Required throughput</div>
+              </div>
+              <div className="bg-purple-100 p-4 rounded-xl text-center border border-purple-300">
+                <div className="font-bold text-purple-800 mb-2">Memory Estimation</div>
+                <div className="text-base font-mono text-purple-900 font-bold">M<sub>total</sub> = Weights + Acts + State</div>
+                <div className="text-xs text-gray-600 mt-2">Weights + activations + state</div>
+              </div>
+              <div className="bg-orange-100 p-4 rounded-xl text-center border border-orange-300">
+                <div className="font-bold text-orange-800 mb-2">Power Consumption</div>
+                <div className="text-base font-mono text-orange-900 font-bold">P<sub>avg</sub> = Dynamic + Static</div>
+                <div className="text-xs text-gray-600 mt-2">Dynamic + static leakage</div>
+              </div>
+            </div>
+
+            <Separator className="text-green-500" />
+
+            <div className="bg-gradient-to-r from-green-200 to-green-300 p-4 rounded-xl border border-green-400">
+              <div className="font-bold text-green-900 text-center mb-3 text-lg">Platform Recommendation Algorithm</div>
+              <div className="grid grid-cols-3 gap-3 text-sm">
+                <div className="bg-white p-2 rounded-lg text-center shadow">
+                  <div className="font-semibold text-green-700">TinyML (very low throughput)</div>
+                  <div className="text-xs text-gray-600">STM32H7, Nordic nRF52840</div>
+                </div>
+                <div className="bg-white p-2 rounded-lg text-center shadow">
+                  <div className="font-semibold text-blue-700">Mid-Range (few TOPS-class NPUs)</div>
+                  <div className="text-xs text-gray-600">TI AM62A7, TI TDA4VM</div>
+                </div>
+                <div className="bg-white p-2 rounded-lg text-center shadow">
+                  <div className="font-semibold text-red-700">High-Performance (tens of TOPS+)</div>
+                  <div className="text-xs text-gray-600">Jetson Orin Nano, Hailo-8</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Separator className="text-gray-400" />
+
+          <div className="bg-white rounded-lg shadow-2xl p-6 border-4 border-yellow-400/50">
+            <div className="bg-yellow-600 text-white px-4 py-2 rounded-t-lg -mx-6 -mt-6 mb-4 flex items-center justify-between">
+              <span className="font-extrabold text-lg">STAGE 3: Solar-Constrained Training &amp; Validation (Section III.C)</span>
+              <Sun size={24} />
+            </div>
+
+            <div className="bg-gradient-to-r from-yellow-100 to-orange-100 p-4 rounded-xl mb-4 border border-yellow-300">
+              <div className="font-semibold text-center text-gray-800 mb-2">Solar Power Availability Model</div>
+              <div className="text-center text-sm font-mono bg-white p-2 rounded font-bold">
+                P<sub>solar</sub>(t) = P<sub>max</sub> · max(0, sin(π(t-6)/12)) · W(t)
+              </div>
+              <div className="text-center text-xs text-gray-600 mt-2">
+                GPU Power (assumed) 250 W • PV intensity 48 gCO₂/kWh • Example target d<sub>cycle</sub> ≈ 50% (with appropriate sizing/calibration)
+              </div>
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div className="bg-gray-100 p-4 rounded-xl border-2 border-gray-400">
+                <div className="font-bold text-gray-800 text-center mb-2">Regime 1: Continuous (Grid)</div>
+                <div className="text-sm text-gray-700 space-y-1">
+                  <div>• Baseline reference</div>
+                  <div>• Standard ω</div>
+                </div>
+              </div>
+
+              <div className="bg-green-100 p-4 rounded-xl border-2 border-green-500">
+                <div className="font-bold text-green-800 text-center mb-2">
+                  Regime 2: Passive ({mathMode ? kappaEq0 : "κ = 0"})
+                </div>
+                <div className="text-sm text-gray-700 space-y-1">
+                  <div>• Checkpoint only (Adam state)</div>
+                  <div><strong>Outperforms active (in this study)</strong></div>
+                </div>
+              </div>
+
+              <div className="bg-red-100 p-4 rounded-xl border-2 border-red-500">
+                <div className="font-bold text-red-800 text-center mb-2">
+                  Regime 3: Active ({mathMode ? kappaGt0 : "κ > 0"})
+                </div>
+                <div className="text-sm text-gray-700 space-y-1">
+                  <div>• Adaptive regularization amplification</div>
+                  <div><strong>Empirically discarded</strong></div>
+                </div>
+              </div>
+            </div>
+
+            <Separator className="text-yellow-500" />
+
+            <div className="bg-blue-100 p-4 rounded-xl border border-blue-300">
+              <div className="font-bold text-blue-800 text-center mb-2 flex items-center justify-center">
+                <Activity className="inline mr-2" size={20} />
+                Problem Classification &amp; Statistical Validation
+              </div>
+              <div className="text-sm text-gray-700 text-center">
+                <span className="font-bold text-green-700">Class A (Suitable):</span> Elliptic/Parabolic PDEs (e.g., Burgers, Laplace)
+                <span className="font-bold text-red-700 ml-4">Class B (Unsuitable):</span> Hyperbolic transport, hysteretic device models
+                <span className="font-bold text-yellow-700 ml-4">Class C (Marginal):</span> Second-order hyperbolic / oscillatory dynamics
+              </div>
+            </div>
+          </div>
+
+          <Separator className="text-gray-400" />
+
+          <div className="bg-gradient-to-r from-green-500 to-green-700 text-white p-6 rounded-xl shadow-xl border-4 border-green-700/50">
+            <div className="text-center mb-4">
+              <CheckCircle className="inline mr-3" size={32} />
+              <span className="text-2xl font-extrabold">OUTPUT: Sustainable Deployment Strategy</span>
+            </div>
+            <div className="grid grid-cols-3 gap-4 text-sm">
+              <OutputCard icon={<Box size={18} />} title="Compressed Model" value="Physics-consistent, cluster-based" />
+              <OutputCard icon={<Cpu size={18} />} title="Optimal Hardware" value="Right-sized platform selection" />
+              <OutputCard icon={<Code size={18} />} title="Verilog-A HDL" value="Circuit-ready compact model" />
+              <OutputCard icon={<TrendingDown size={18} />} title="96.8% Cost Savings" value="\$8 MCU vs. \$249 Jetson module" />
+              <OutputCard icon={<Zap size={18} />} title="~18× Carbon Reduction" value="Training + 5-year deployment" />
+              <OutputCard icon={<Activity size={18} />} title="<6% Accuracy Impact" value="For suitable applications (Class A)" />
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    // Render (React 18)
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(<MethodologyPipeline />);
+  </script>
 </body>
 </html>
