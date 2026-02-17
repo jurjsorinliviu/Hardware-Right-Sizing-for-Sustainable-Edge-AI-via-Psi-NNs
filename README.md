@@ -538,11 +538,11 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 ## 🙏 Acknowledgments
 
-- Ψ-HDL Framework: [PSI-HDL GitHub](https://github.com/jurjsorinliviu/PSI-HDL)
+- Ψ-HDL Framework: [Psi-HDL GitHub](https://github.com/jurjsorinliviu/Psi-HDL)
 - Original Ψ-NN: [Psi-NN GitHub](https://github.com/ZitiLiu/Psi-NN)
 
 ---
 
-**Last Updated**: December 2025  
+**Last Updated**: February 2026  
 **Paper Status**: Under Review  
 **Code Version**: v1.0.0
