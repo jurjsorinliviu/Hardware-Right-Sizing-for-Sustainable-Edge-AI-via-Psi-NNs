@@ -439,7 +439,7 @@ If you use this framework in your research, please cite:
 
 ## 📚 Related Publications
 
-1. **Ψ-HDL Framework**: [PSI-HDL GitHub](https://github.com/jurjsorinliviu/PSI-HDL)
+1. **Ψ-HDL Framework**: [PSI-HDL GitHub](https://github.com/jurjsorinliviu/Psi-HDL)
 2. **Original Ψ-NN**: [Psi-NN GitHub](https://github.com/ZitiLiu/Psi-NN)
 
 ## 🔍 Key Findings Summary
